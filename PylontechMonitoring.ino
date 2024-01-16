@@ -1,17 +1,24 @@
+// Original software by Ireneusz Kzielinski https://github.com/irekzielinski/Pylontech-Battery-Monitoring
+// Addition of Wakeup Command (/wakeup) by Christoph Krzikalla (www.rustimation.eu)
+// reqires extra hardware to send 5V Signal to Pylontech battery console pin 4 and 5
+// will only work with "C" Models of Pylontech Battery (US2000C etc.)
+// Instructions @ https://www.rustimation.eu/index.php/solar-pylontech-akku-ueber-konsole-aufwecken/
+
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <ArduinoOTA.h>
 #include <ESP8266WebServer.h>
-#include <ESP8266WebServer.h>
+//#include <ESP8266WebServer.h>
 #include <SimpleTimer.h>
 #include <TimeLib.h> //https://github.com/PaulStoffregen/Time
 #include <ntp_time.h>
 #include <circular_log.h>
-//
+
+int battPinout = 14; // Assign LED pin i.e: D5 on D1Mini
 
 //IMPORTANT: Specify your WIFI settings:
-#define WIFI_SSID "--YOUR SSID HERE --"
-#define WIFI_PASS "-- YOUR PASSWORD HERE --"
+//#define WIFI_SSID "yourWiFiSSID"
+//#define WIFI_PASS "yourTopSecretPreSharedKey"
 
 //IMPORTANT: Uncomment this line if you want to enable MQTT (and fill correct MQTT_ values below):
 //#define ENABLE_MQTT
@@ -19,11 +26,11 @@
 #ifdef ENABLE_MQTT
 //NOTE 1: if you want to change what is pushed via MQTT - edit function: pushBatteryDataToMqtt.
 //NOTE 2: MQTT_TOPIC_ROOT is where battery will push MQTT topics. For example "soc" will be pushed to: "home/grid_battery/soc"
-#define MQTT_SERVER        "192.168.0.6"
+#define MQTT_SERVER        "IP or servername"
 #define MQTT_PORT          1883
-#define MQTT_USER          ""
-#define MQTT_PASSWORD      ""
-#define MQTT_TOPIC_ROOT    "home/grid_battery/"  //this is where mqtt data will be pushed
+#define MQTT_USER          "username"
+#define MQTT_PASSWORD      "password"
+#define MQTT_TOPIC_ROOT    "batterie/pylontech/"  //this is where mqtt data will be pushed
 #define MQTT_PUSH_FREQ_SEC 2  //maximum mqtt update frequency in seconds
 
 #include <PubSubClient.h>
@@ -47,6 +54,7 @@ void Log(const char* msg)
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT); 
   digitalWrite(LED_BUILTIN, HIGH);//high is off
+  pinMode(battPinout, OUTPUT);
   
   // put your setup code here, to run once:
   WiFi.mode(WIFI_STA);
@@ -64,8 +72,9 @@ void setup() {
     delay(1000);
   }
 
-  ArduinoOTA.setHostname("GarageBattery");
+  ArduinoOTA.setHostname("RusticoBattery");
   ArduinoOTA.begin();
+  server.on("/wakeup", handleBattWakeup);
   server.on("/", handleRoot);
   server.on("/log", handleLog);
   server.on("/req", handleReq);
@@ -251,6 +260,13 @@ void handleJsonOut()
   server.send(200, "application/json", g_szRecvBuff);
 }
 
+//Routine zum Einschalten der Batterie
+void handleBattWakeup() {
+  digitalWrite(battPinout, HIGH); // send wakeup signal
+  delay(5000); // wait for a second
+  digitalWrite(battPinout, LOW); // turn off wakeup signal
+  server.send(200, "text/html", "Wakeup signal sent...");
+}
 void handleRoot() {
   unsigned long days = 0, hours = 0, minutes = 0;
   unsigned long val = os_getCurrentTimeSec();
@@ -265,7 +281,7 @@ void handleRoot() {
   val -= minutes*60;
   
   static char szTmp[2500] = "";  
-  snprintf(szTmp, sizeof(szTmp)-1, "<html><b>Garage Battery</b><br>Time GMT: %d/%02d/%02d %02d:%02d:%02d (%s)<br>Uptime: %02d:%02d:%02d.%02d<br><br>free heap: %u<br>Wifi RSSI: %d<BR>Wifi SSID: %s", 
+  snprintf(szTmp, sizeof(szTmp)-1, "<html><b>2.4kWh Pylontech US2000C</b><br>Time GMT: %d/%02d/%02d %02d:%02d:%02d (%s)<br>Uptime: %02d:%02d:%02d.%02d<br><br>free heap: %u<br>Wifi RSSI: %d<BR>Wifi SSID: %s", 
             year(), month(), day(), hour(), minute(), second(), "GMT",
             (int)days, (int)hours, (int)minutes, (int)val, 
             ESP.getFreeHeap(), WiFi.RSSI(), WiFi.SSID().c_str());
@@ -724,7 +740,7 @@ void mqttLoop()
   //first: let's make sure we are connected to mqtt
   const char* topicLastWill = MQTT_TOPIC_ROOT "availability";
   if (!mqttClient.connected() && (g_lastConnectionAttempt == 0 || os_getCurrentTimeSec() - g_lastConnectionAttempt > 60)) {
-    if(mqttClient.connect("GarageBattery", MQTT_USER, MQTT_PASSWORD, topicLastWill, 1, true, "offline"))
+    if(mqttClient.connect("RusticoBattery", MQTT_USER, MQTT_PASSWORD, topicLastWill, 1, true, "offline"))
     {
       Log("Connected to MQTT server: " MQTT_SERVER);
       mqttClient.publish(topicLastWill, "online", true);
