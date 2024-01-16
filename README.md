@@ -8,7 +8,7 @@ Some time ago, Ireneusz Kzielinski published his project on Github with which th
 
 This allows the battery status to be read out interactively via a simple web interface and also manipulated within limits - for integration into IoT solutions, there is an optional MQTT or a small API that can also spit out the status information as JSON on request. Both can be easily integrated into Node-Red, Home Assistant or other IoT platforms.
 
-I am assuming that you already have build the original board and are using Ireneusz' software. If not, please consult Ireneusz' project at Github [https://github.com/irekzielinski/Pylontech-Battery-Monitoring].
+I am assuming that you already have built the original board and are using Ireneusz' software. If not, please consult Ireneusz' project at Github [https://github.com/irekzielinski/Pylontech-Battery-Monitoring].
 
 # Shutting Down The Battery
 can be done by the existing software by issuing the command [http://IPAddress_of_D1_mini/req?code=shut]
