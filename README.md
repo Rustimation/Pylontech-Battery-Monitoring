@@ -1,4 +1,4 @@
-# Pylontech Battery Monitoring via WiFi
+# Pylontech Battery Monitoring via WiFi/WLAN
 
 This project allows you to control and monitor Pylontech US2000B, US2000C and US3000C batteries via console port over WiFi.
 It it's a great starting point to integrate battery with your home automation.
