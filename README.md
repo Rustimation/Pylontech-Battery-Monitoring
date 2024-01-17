@@ -10,6 +10,8 @@ This allows the battery status to be read out interactively via a simple web int
 
 I am assuming that you already have built the original board and are using Ireneusz' software. If not, please consult Ireneusz' project at Github [https://github.com/irekzielinski/Pylontech-Battery-Monitoring].
 
+In some cases you might want to shut down the battery during longer periods of standby or because there is an unwanted drain due to an inverter in standby (e.g. Hoymiles).
+
 # Shutting Down The Battery
 can be done by the existing software by issuing the command [http://IPAddress_of_D1_mini/req?code=shut]
 However, afterwards you won't be able to restart the battery by means of the console software. 
