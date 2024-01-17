@@ -27,6 +27,7 @@ You already have the D1 Mini for Ireneusz solution, you'll need additionally
 * Plus 1 pair of stacking headers - included in the D1 pack if you haven't thrown that away yet 😉
 * 1 solderable terminal to attach the wires 4/5 that go to the console port.
 * Small piece of dot/strip grid circuit board - preferably with 3 rows of dots - e.g. Rademacher 790
+  
 Cost is <5€
 
 # Making a Piggyback Daughterboard
@@ -41,6 +42,9 @@ Provided that you haven't soldered the D1 Mini directly to the board. In that ca
 The schematics are as follows:
 
 ![Schematics](Schematics.png)
+
+In Case you start from scratch, you can of course make a single board to interface to the console and wake it up as well:
+
 
 # Code
 I've added some lines to Ireneusz Code without touching the original logic. They are commented by text like "added by ...." 
