@@ -45,6 +45,7 @@ The schematics are as follows:
 
 In Case you start from scratch, you can of course make a single board to interface to the console and wake it up as well:
 
+![All in onbe board ](schematics_allin1.png)
 
 # Code
 I've added some lines to Ireneusz Code without touching the original logic. They are commented by text like "added by ...." 
