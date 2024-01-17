@@ -32,6 +32,8 @@ The board will go between the existing board from Ireneusz solution (assuming jo
 It looks like this:
 
 ![Piggyback board with attached D1 Mini to be plugged onto the original board](IMG_8643.jpg)
+![Piggyback board ](IMG_8638.jpg)
+![Piggyback board ](IMG_8640.jpg)
 
 Provided that you haven't soldered the D1 Mini directly to the board. In that case you'll need to solder cables directly to the D1: +5V, Gnd, D5
 The schematics are as follows:
