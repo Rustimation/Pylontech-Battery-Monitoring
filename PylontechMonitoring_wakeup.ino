@@ -14,11 +14,11 @@
 #include <ntp_time.h>
 #include <circular_log.h>
 
-int battPinout = 14; // Assign LED pin i.e: D5 on D1Mini
+int battPinout = 14; // Assign LED pin i.e: D5 on D1Mini        <--- added by Rustimation
 
 //IMPORTANT: Specify your WIFI settings:
-//#define WIFI_SSID "yourWiFiSSID"
-//#define WIFI_PASS "yourTopSecretPreSharedKey"
+#define WIFI_SSID "--YOUR SSID HERE --"
+#define WIFI_PASS "-- YOUR PASSWORD HERE --"
 
 //IMPORTANT: Uncomment this line if you want to enable MQTT (and fill correct MQTT_ values below):
 //#define ENABLE_MQTT
@@ -54,12 +54,12 @@ void Log(const char* msg)
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT); 
   digitalWrite(LED_BUILTIN, HIGH);//high is off
-  pinMode(battPinout, OUTPUT);
+  pinMode(battPinout, OUTPUT);       //<--- added by Rustimation
   
   // put your setup code here, to run once:
   WiFi.mode(WIFI_STA);
   WiFi.persistent(false); //our credentialss are hardcoded, so we don't need ESP saving those each boot (will save on flash wear)
-  WiFi.hostname("PylontechBattery");
+  WiFi.hostname("GarageBattery");
   WiFi.begin(WIFI_SSID, WIFI_PASS);
 
   for(int ix=0; ix<10; ix++)
@@ -74,7 +74,7 @@ void setup() {
 
   ArduinoOTA.setHostname("RusticoBattery");
   ArduinoOTA.begin();
-  server.on("/wakeup", handleBattWakeup);
+  server.on("/wakeup", handleBattWakeup);       //<--- added by Rustimation
   server.on("/", handleRoot);
   server.on("/log", handleLog);
   server.on("/req", handleReq);
@@ -259,14 +259,15 @@ void handleJsonOut()
   prepareJsonOutput(g_szRecvBuff, sizeof(g_szRecvBuff));
   server.send(200, "application/json", g_szRecvBuff);
 }
-
+//++++++++++++++added by Rustimation+++++++++++++
 //Routine zum Einschalten der Batterie
 void handleBattWakeup() {
   digitalWrite(battPinout, HIGH); // send wakeup signal
   delay(5000); // wait for a second
   digitalWrite(battPinout, LOW); // turn off wakeup signal
   server.send(200, "text/html", "Wakeup signal sent...");
-}
+  }
+//++++++++++++++End addition++++++++++++++++++++
 void handleRoot() {
   unsigned long days = 0, hours = 0, minutes = 0;
   unsigned long val = os_getCurrentTimeSec();
@@ -740,7 +741,7 @@ void mqttLoop()
   //first: let's make sure we are connected to mqtt
   const char* topicLastWill = MQTT_TOPIC_ROOT "availability";
   if (!mqttClient.connected() && (g_lastConnectionAttempt == 0 || os_getCurrentTimeSec() - g_lastConnectionAttempt > 60)) {
-    if(mqttClient.connect("RusticoBattery", MQTT_USER, MQTT_PASSWORD, topicLastWill, 1, true, "offline"))
+    if(mqttClient.connect("GarageBattery", MQTT_USER, MQTT_PASSWORD, topicLastWill, 1, true, "offline"))
     {
       Log("Connected to MQTT server: " MQTT_SERVER);
       mqttClient.publish(topicLastWill, "online", true);
