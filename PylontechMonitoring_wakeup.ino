@@ -3,6 +3,7 @@
 // reqires extra hardware to send 5V Signal to Pylontech battery console pin 4 and 5
 // will only work with "C" Models of Pylontech Battery (US2000C etc.)
 // Instructions @ https://www.rustimation.eu/index.php/solar-pylontech-akku-ueber-konsole-aufwecken/
+//
 
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
