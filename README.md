@@ -6,7 +6,7 @@ An Instructable in German can be found at [https://rustimation.eu]
 
 Some time ago, Ireneusz Kzielinski published his project on Github with which the battery can be monitored via WiFi. It essentially consists of an ESP8266 microcontroller (Wemos D1 Mini), a Max3232 transceiver, two capacitors, a remodelled network cable and a USB power supply. That's it! All essential information can be found on Github. Cost point 25 - 35€.
 
-This allows the battery status to be read out interactively via a simple web interface and also manipulated within limits - for integration into IoT solutions, there is an optional MQTT or a small API that can also spit out the status information as JSON on request. Both can be easily integrated into Node-Red, Home Assistant or other IoT platforms.
+This allows the battery status to be read out interactively via a simple web interface and also manipulated within limits - for integration into IoT solutions, you can activate MQTT or send commands to a amall API that can also return the status information as JSON object. Both can be easily integrated into Node-Red, Home Assistant or other IoT platforms.
 
 I am assuming that you already have built the original board and are using Ireneusz' software. If not, please consult Ireneusz' project at Github [https://github.com/irekzielinski/Pylontech-Battery-Monitoring].
 
@@ -48,5 +48,5 @@ In Case you start from scratch, you can of course make a single board to interfa
 ![All in onbe board ](schematics_allin1.png)
 
 # Code
-I've added some lines to Ireneusz Code without touching the original logic. They are commented by text like "added by ...." 
+I've added some lines to Ireneusz' Code without touching the original logic. They are commented by text like "added by ...." 
 Unfortunately I lack the Git/Github expertise to show the original solution and my additions side by side.
