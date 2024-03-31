@@ -4,7 +4,7 @@ an addtion to and based on
 
 An Instructable in German can be found at [https://rustimation.eu]
 
-Some time ago, Ireneusz Kzielinski published his project on Github with which the battery can be monitored via WiFi. It essentially consists of an ESP8266 microcontroller (Wemos D1 Mini), a Max3232 transceiver, two capacitors, a remodelled network cable and a USB power supply. That's it! All essential information can be found on Github. Cost point 25 - 35€.
+Some time ago, Ireneusz Zielinski published his project on Github with which the battery can be monitored via WiFi. It essentially consists of an ESP8266 microcontroller (Wemos D1 Mini), a Max3232 transceiver, two capacitors, a remodelled network cable and a USB power supply. That's it! All essential information can be found on Github. Cost point 25 - 35€.
 
 This allows the battery status to be read out interactively via a simple web interface and also manipulated within limits - for integration into IoT solutions, you can activate MQTT or send commands to a amall API that can also return the status information as JSON object. Both can be easily integrated into Node-Red, Home Assistant or other IoT platforms.
 
