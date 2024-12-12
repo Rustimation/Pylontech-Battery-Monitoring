@@ -54,6 +54,7 @@ Unfortunately I lack the Git/Github expertise to show the original solution and 
 # New Structure of "pwr-command" output
 When using a new US5000 Pylontech battery I found that the JSON output as well as the MQTT output were showing 0V and an "Alarm" Status. This was obviously wrong, since the battery was working perfectly well.
 Analyis showed that the structure of the pwr command output had changed. see also [https://github.com/irekzielinski/Pylontech-Battery-Monitoring/issues/31]
+
 For the JSON or MQTT output of PylontechMonitoring, the parameters in the pwr table are parsed according to their position in the respective line. For example, the baseState (Charge/Discharge/Idle/Balance) is now at position 91 instead of position 55, which naturally leads to greater confusion with the effect that JSON and MQTT do not work.
 I have adapted Ireneusz program to reflect the new structure. See file **241211_Github_Pylon_Display_Wakeup_NewStructure.ino**
 
