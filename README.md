@@ -58,4 +58,4 @@ Analyis showed that the structure of the pwr command output had changed. see als
 For the JSON or MQTT output of PylontechMonitoring, the parameters in the pwr table are parsed according to their position in the respective line. For example, the baseState (Charge/Discharge/Idle/Balance) is now at position 91 instead of position 55, which naturally leads to greater confusion with the effect that JSON and MQTT do not work.
 I have adapted Ireneusz program to reflect the new structure. See file **241211_Github_Pylon_Display_Wakeup_NewStructure.ino**
 
-**ADDITIONALLY**, I have added some code to allow outputting the crucial batttery parameters (V, SoC, status) to a little SSD1306 display. If you don't want that, simply remove line 728. _LCD_display_loop();_ located in the _void loop();_ section.
+**ADDITIONALLY**, I have added some code to allow outputting the crucial batttery parameters (V, SoC, status) to a little SSD1306 display. If you don't want that, simply remove line 728. `LCD_display_loop();` located in the `void loop();` section.
