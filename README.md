@@ -1,6 +1,6 @@
 # Pylontech Wakeup Function for "C" Models like US2000C 
 an addtion to and based on  
-# Pylontech Battery Monitoring via WiFi by Ireneusz Zielinski [https://github.com/irekzielinski/Pylontech-Battery-Monitoring]
+** Pylontech Battery Monitoring via WiFi by Ireneusz Zielinski** [https://github.com/irekzielinski/Pylontech-Battery-Monitoring]
 
 An Instructable in German can be found at [https://rustimation.eu]
 
@@ -12,14 +12,14 @@ I am assuming that you already have built the original board and are using Irene
 
 In some cases you might want to shut down the battery during longer periods of standby or because there is an unwanted drain due to an inverter in standby (e.g. Hoymiles).
 
-# Shutting Down The Battery
+## Shutting Down The Battery
 can be done by the existing software by issuing the command [http://IPAddress_of_D1_mini/req?code=shut]
 However, afterwards you won't be able to restart the battery by means of the console software. 
 
-# Restarting The Battery 
+## Restarting The Battery 
 The Pylontech "C" models however, have two pins inside the console RJ45 port with a special purpose. If you supply a 5-12V, 5-15mA Signal for > 0.5 seconds to pin 4 (+) and pin 5 (-) you can restart the battery. If you build the little piece of hardware and use the code provided here, you will then be able to wake up the battery by issuing the command [http://IPAddress_of_D1_mini/wakeup]
 
-# Extra HW Required
+## Extra HW Required
 You already have the D1 Mini for Ireneusz solution, you'll need additionally
 * 1 Logic Level n-channel MOSFET e.g. IRLZ44N or alternatively and possibly better IRF3708 (currently poorly available) or another Logic Level n-channel MOSFET
 * 1 pull-down resistor with 47k Ohm
@@ -30,7 +30,7 @@ You already have the D1 Mini for Ireneusz solution, you'll need additionally
   
 Cost is <5€
 
-# Making a Piggyback Daughterboard
+## Making a Piggyback Daughterboard
 The board will go between the existing board from Ireneusz solution (assuming jou already have built it) and the D1 Mini.
 It looks like this:
 
@@ -47,11 +47,11 @@ In Case you start from scratch, you can of course make a single board to interfa
 
 ![All in onbe board ](schematics_allin1.png)
 
-# Code
+## Code
 I've added some lines to Ireneusz' Code without touching the original logic. They are commented by text like "added by ...." 
 Unfortunately I lack the Git/Github expertise to show the original solution and my additions side by side.
 
-# New Structure of "pwr-command" output
+### New Structure of "pwr-command" output
 When using a new US5000 Pylontech battery I found that the JSON output as well as the MQTT output were showing 0V and an "Alarm" Status. This was obviously wrong, since the battery was working perfectly well.
 Analyis showed that the structure of the pwr command output had changed. see also [https://github.com/irekzielinski/Pylontech-Battery-Monitoring/issues/31]
 
