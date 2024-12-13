@@ -1,6 +1,6 @@
 # Pylontech Wakeup Function for "C" Models like US2000C 
 an addtion to and based on  
-** Pylontech Battery Monitoring via WiFi by Ireneusz Zielinski** [https://github.com/irekzielinski/Pylontech-Battery-Monitoring]
+__ Pylontech Battery Monitoring via WiFi by Ireneusz Zielinski __ [https://github.com/irekzielinski/Pylontech-Battery-Monitoring]
 
 An Instructable in German can be found at [https://rustimation.eu]
 
