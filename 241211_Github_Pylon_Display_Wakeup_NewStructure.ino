@@ -80,7 +80,7 @@ void Log(const char* msg)
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT); 
   digitalWrite(LED_BUILTIN, HIGH);//high is off
-  
+  pinMode(battPinout, OUTPUT);
   // put your setup code here, to run once:
   WiFi.mode(WIFI_STA);
   WiFi.persistent(false); //our credentials are hardcoded, so we don't need ESP saving those each boot (will save on flash wear)
